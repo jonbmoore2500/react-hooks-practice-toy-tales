@@ -26,6 +26,17 @@ function App() {
     .then(newData => setToysData([...toysData, newData]))
   }
 
+  function deleteToy(deleteId) {
+    fetch(`http://localhost:3001/toys/${deleteId}`, {
+      method: "DELETE"
+    })
+    .then(r => r.json())
+    .then(() => {
+      const newToysData = toysData.filter(toy => toy.id !== deleteId)
+      setToysData(newToysData)
+    })
+  }
+
   function handleClick() {
     setShowForm((showForm) => !showForm);
   }
@@ -37,7 +48,7 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toysData={toysData}/>
+      <ToyContainer toysData={toysData} deleteToy={deleteToy}/>
     </>
   );
 }
