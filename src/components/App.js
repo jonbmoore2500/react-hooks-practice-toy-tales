@@ -37,6 +37,28 @@ function App() {
     })
   }
 
+  function addLike(likeId, newLikes) {
+    fetch(`http://localhost:3001/toys/${likeId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "likes": newLikes
+      })
+    })
+    .then(r => r.json())
+    .then((data) => {
+      const newData = toysData.map((toy) => {
+        if (toy.id === likeId) {
+          return toy = data
+        }
+        return toy
+      })
+      setToysData(newData)
+    })
+  }
+
   function handleClick() {
     setShowForm((showForm) => !showForm);
   }
@@ -48,7 +70,7 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toysData={toysData} deleteToy={deleteToy}/>
+      <ToyContainer toysData={toysData} deleteToy={deleteToy} addLike={addLike}/>
     </>
   );
 }
