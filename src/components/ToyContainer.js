@@ -6,11 +6,11 @@ function ToyContainer({toysData}) {
   
   
   return (
-    <div id="toy-collection">{
-      toysData.map((toy) => (
+    <div id="toy-collection">
+      {toysData.map((toy) => (
         <ToyCard key={toy.id} toy={toy}/>
-      ))
-    }</div>
+      ))}
+    </div>
   );
 }
 
